@@ -16,6 +16,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/select2/js/select2.full.min.js"></script>
 <script src="plugins/sparklines/sparkline.js"></script>
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
@@ -43,7 +44,6 @@
 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js">
 </script>
 <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
-<script src="plugins/select2/js/select2.full.min.js"></script>
 <script src="js/jam.js"></script>
 
 @include('sweetalert::alert')
@@ -67,20 +67,19 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootst
 </script>
 <script type="text/javascript">
 $(function () {
+  $('.select2').select2()
    $('#reservationdate').datetimepicker({
         format: 'L'
     });
-  })
+  });
+
   </script>
 
 <script>
-      $(".hapus_blok").click(function(){
-    var id_blok = $("#id_blok").val();
-    alert("haha"); return false;
+    function hapus_blok(id){
     Swal.fire({
     title: 'Yakin?',
-    text: "Apakah anda ingin menghapus",
-    // imageUrl: 'img/testing/katalog/+id_izin',
+    text: "Apakah anda ingin menghapus blok",
     imageWidth: 170,
     imageHeight: 230,
     showCancelButton: true,
@@ -89,23 +88,39 @@ $(function () {
     confirmButtonText: 'Ya, hapus'
     }).then((result) => {
     if (result.isConfirmed) {
-      window.location = "/hapus-blok"+id_blok,
+      window.location = "/hapus-blok"+id,
       Swal.fire(
-        'Blok Dihapu!',
-        'Berhasil',
-        'success'
+        'Blok Dihapus!',
+        'Sedang Proses',
+        'warning'
       )
     }
     })
-      });
+      };
 
+    function hapus_slot(id){
+    Swal.fire({
+    title: 'Yakin?',
+    text: "Apakah anda ingin menghapus slot",
+    imageWidth: 170,
+    imageHeight: 230,
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, hapus'
+    }).then((result) => {
+    if (result.isConfirmed) {
+      window.location = "/hapus-slot"+id,
+      Swal.fire(
+        'Slot Dihapus!',
+        'Sedang Proses',
+        'warning'
+      )
+    }
+    })
+      };
 </script>
 
-{{-- <script>
-  $(".hapu_blok").click(function(){
-    alert("tes");
-  });
-</script> --}}
 <script>
   // $(".btn_slot").click(function(){
   function btn_detail_slot(id_blok){

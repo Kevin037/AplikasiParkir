@@ -109,7 +109,7 @@
 
               <div class="position-relative form-group">
                 <label>Pilih Jenis Kendaraan</label>
-                <select class="form-control" name="jenis_id" id="" required>
+                <select class="form-control select2" name="jenis_id" id="" required>
                     <option value="">-- Pilih Jenis --</option>
                     @foreach ($jenis as $jenis)
                         <option value="{{ $jenis->id }}">{{ $jenis->jenis }}</option>
@@ -119,10 +119,10 @@
                     Pilih jenis !
                 </div>
                 </div>
-
+                
               <div class="position-relative form-group">
                 <label>Pilih Slot</label>
-                <select class="form-control" name="slot_id" id="" required>
+                <select class="form-control select2" name="slot_id" id="" required>
                     <option value="">-- Pilih Slot --</option>
                     @foreach ($slot as $slot)
                         <option value="{{ $slot['id'] }}">{{ $slot['nama'] }}</option>

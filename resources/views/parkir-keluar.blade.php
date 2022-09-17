@@ -44,6 +44,7 @@
                       <th>Jenis Kendaraan</th>
                       <th>Jam masuk</th>
                       <th>Jam keluar</th>
+                      <th>Tarif</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -51,13 +52,14 @@
                       @foreach($data as $data)
                     <tr>
                       <td>{{ $no }}</td>
-                      <td>{{ $data['no_parkir'] }}</td>
-                      <td>{{ $data['nama_slot'] }}</td>
-                      <td>{{ $data['nama_blok'] }}</td>
-                      <td>{{ $data['no_kendaraan'] }}</td>
-                      <td>{{ $data['nama_jenis_kendaraan'] }}</td>
-                      <td>{{ $data['jam_masuk'] }}</td>
-                      <td>{{ $data['jam_keluar'] }}</td>
+                      <td>{{ $data->no_parkir }}</td>
+                      <td>{{ $data->nama_slot }}</td>
+                      <td>{{ $data->nama_blok }}</td>
+                      <td>{{ $data->no_kendaraan }}</td>
+                      <td>{{ $data->nama_jenis_kendaraan }}</td>
+                      <td>{{ $data->jam_masuk }}</td>
+                      <td>{{ $data->jam_keluar }}</td>
+                      <td>@currency($data->tarif)</td>
                     </tr>
                     <?php $no++ ?>
                   @endforeach

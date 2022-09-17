@@ -41,4 +41,9 @@ class Blok extends Model
 
         return $stok_baru;
     }
+
+    public static function blok_ready(){
+        $blok = count(Slot::where('blok_id',BlokController::$id)->where('status',1)->get());
+        return $blok;
+    }
 }

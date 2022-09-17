@@ -53,8 +53,19 @@ class SlotController extends Controller
 
     public function hapus($id){
         self::$id = $id;
-        Slot::hapus();
-        return redirect('/Slot');
+        $data = Slot::get_slot_id();
+        foreach ($data as $datas) {
+            $nama = $datas->nama;
+        }
+        $slot = Slot::find($id);
+        $slot_ready = Slot::slot_ready();
+        if ($slot_ready > 0) {
+            return back()->with('toast_error', '"'.$nama.'" sedang terparkir kendaraan, 
+            Hapus Slot Gagal.');
+        }else{
+            $slot->delete();
+            return redirect('/slot')->with('toast_success', '"'.$nama.'" berhasil dihapus.');
+        }
     }
 
     public function detail_slot($id_blok)

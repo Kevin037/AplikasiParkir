@@ -48,9 +48,13 @@
 
                                                     <div class="position-relative form-group">
                                                     <select class="form-control" name="blok_id" id="" required>
-                                                        <option value="">-- Pilih Blok --</option>
+                                                        <option value="{{ $data->blok_id }}">{{ $data->blok->nama }}</option>
                                                         @foreach ($blok as $blok)
-                                                          <option value="{{ $blok->id }}">{{ $blok->nama }}</option>
+                                                          @if ($data->blok_id == $blok->id)
+                                                              
+                                                          @else
+                                                            <option value="{{ $blok->id }}">{{ $blok->nama }}</option>
+                                                          @endif
                                                         @endforeach
                                                     </select>
                                                     <div class="invalid-feedback">

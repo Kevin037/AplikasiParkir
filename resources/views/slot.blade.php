@@ -53,6 +53,7 @@
                       <td>{{ $data->nama_blok }}</td>
                       <input type="hidden" id="id_blok" value="{{ $data->id }}">
                       <td><a class="btn btn-light" href="/form-edit-slot{{ $data->id }}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger" onclick="hapus_slot({{ $data->id }})"><i class="fa fa-trash"></i></a>
                     </td>
                     </tr>
                     <?php $no++ ?>

@@ -51,8 +51,19 @@ class BlokController extends Controller
 
     public function hapus($id){
         self::$id = $id;
-        Blok::hapus();
-        return redirect('/blok');
+        $data = Blok::get_blok_id();
+        foreach ($data as $datas) {
+            $nama = $datas->nama;
+        }
+        $blok = Blok::find($id);
+        $blok_ready = Blok::blok_ready();
+        if ($blok_ready > 0) {
+            return back()->with('toast_error', '"'.$nama.'" sedang terpakai, 
+            Hapus Blok Gagal.');
+        }else{
+            $blok->delete();
+            return redirect('/blok')->with('toast_success', '"'.$nama.'" berhasil dihapus.');
+        }
     }
 
     public function data_blok()
@@ -63,7 +74,8 @@ class BlokController extends Controller
         $arr=array();
 
         foreach ($data as $datas) {
-            $blok_ready = count(Slot::where('blok_id',$datas['id'])->where('status',1)->get());
+            self::$id = $datas['id'];
+            $blok_ready = Blok::blok_ready();
             array_push($arr,$blok_ready);
         }
         

@@ -26,7 +26,7 @@ class Transaksi extends Model
 
     public static function get_parkir_keluar(){
         $testi_all = Transaksi::select('transaksis.*','slots.nama as nama_slot', 'bloks.nama as nama_blok',
-        'kendaraans.no_kendaraan as no_kendaraan','jenis_kendaraans.jenis as nama_jenis_kendaraan')
+        'kendaraans.no_kendaraan as no_kendaraan','jenis_kendaraans.jenis as nama_jenis_kendaraan', 'jenis_kendaraans.tarif as tarif')
         ->join('slots', 'slots.id', '=','transaksis.slot_id')
         ->join('bloks', 'bloks.id', '=','slots.blok_id')
         ->join('kendaraans', 'kendaraans.id', '=','transaksis.kendaraan_id')

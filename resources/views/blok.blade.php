@@ -49,8 +49,9 @@
                     <tr>
                       <td>{{ $no }}</td>
                       <td>{{$data->nama}}</td>
-                      <input type="hidden" id="id_blok" value="{{ $data->id }}">
-                      <td><a class="btn btn-light" href="/form-edit-blok{{ $data->id }}"><i class="fa fa-edit"></i></a>
+                      <input type="hidden" class="id_blok" value="{{ $data->id }}">
+                      <td><a class="btn btn-light" href="/form-edit-blok{{ $data->id }}"><i class="fa fa-edit"></i></a>&nbsp;
+                        <a class="btn btn-danger" onclick="hapus_blok({{ $data->id }})"><i class="fa fa-trash"></i></a>
                       </td>
                     </tr>
                     <?php $no++ ?>

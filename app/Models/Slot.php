@@ -54,4 +54,14 @@ class Slot extends Model
         return $testi_all;
     }
 
+    public static function slot_ready(){
+        $slot = count(Slot::where('id',SlotController::$id)->where('status',0)->get());
+        return $slot;
+    }
+
+    public function blok()
+    {
+        return $this->belongsTo(Blok::class);
+    }
+
 }
