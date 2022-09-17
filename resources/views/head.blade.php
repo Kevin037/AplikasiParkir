@@ -91,7 +91,7 @@
         <!-- Brand Logo -->
         <a href="/" class="brand-link">
           {{-- <img src="admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-          <h2><span class="brand-text font-weight-light">Kepegawaian</span></h2>
+          <h2><span class="brand-text font-weight-light">E-Parking</span></h2>
         </a>
         <!-- Sidebar -->
         <div class="sidebar">

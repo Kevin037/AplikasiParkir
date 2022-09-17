@@ -55,7 +55,12 @@ class Slot extends Model
     }
 
     public static function slot_ready(){
-        $slot = count(Slot::where('id',SlotController::$id)->where('status',0)->get());
+        $slot = count(Slot::where('id',SlotController::$id)->where('status',1)->get());
+        return $slot;
+    }
+
+    public static function slot_transaksi_keluar(){
+        $slot = count(Transaksi::where('slot_id',SlotController::$id)->where('status',0)->get());
         return $slot;
     }
 

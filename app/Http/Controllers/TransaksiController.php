@@ -35,6 +35,7 @@ class TransaksiController extends Controller
     public function parkir_keluar()
     {
         $data = Transaksi::get_parkir_keluar();
+        // dd($data);
         return view('parkir-keluar', compact('data'));
     }
 

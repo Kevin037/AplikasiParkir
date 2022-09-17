@@ -59,9 +59,15 @@ class SlotController extends Controller
         }
         $slot = Slot::find($id);
         $slot_ready = Slot::slot_ready();
-        if ($slot_ready > 0) {
-            return back()->with('toast_error', '"'.$nama.'" sedang terparkir kendaraan, 
-            Hapus Slot Gagal.');
+        $slot_transaksi_keluar = Slot::slot_transaksi_keluar();
+        if ($slot_ready == 0 || $slot_transaksi_keluar > 0) {
+            if ($slot_ready == 0) {
+                return back()->with('toast_error', '"'.$nama.'" sedang terparkir kendaraan, 
+                Hapus Slot Gagal.');
+            }elseif($slot_transaksi_keluar > 0) {
+                return back()->with('toast_error', '"'.$nama.'" Terdapat data histori parkir keluar, 
+                Hapus Slot Gagal.');
+            }
         }else{
             $slot->delete();
             return redirect('/slot')->with('toast_success', '"'.$nama.'" berhasil dihapus.');
