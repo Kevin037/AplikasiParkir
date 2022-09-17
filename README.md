@@ -1,13 +1,24 @@
-## About Laravel
+## About E-Parking
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+E-Parking merupakan aplikasi untuk mempermudah dalam manajemen parkir. Manfaat yang diberikan adalah sebagai berikut :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Mempermudah dalam memonitor tempat parkir yang kosong, hal ini sangat berguna bagi tempat parkir dengan skala ukuran yang cukup besar & luas
+- Mempermudah pendataan kendaraan yang terparkir
+- Mempermudah dalam perhitungan pemasukan parkir
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Struktur Database
 
-## Learning Laravel
+Aplikasi ini terdiri dari beberapa tabel berikut :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- ser
+- k
+- Mempermudah dalam perhitungan pemasukan parkir
+
+## Cara Install
+
+1. Buat database baru di Mysql dengan nama "parkir"
+2. Buka project pada code editor (Disini saya menggunakan Visual Studio Code)
+3. Buka aplikasi web service lokal (XAMPP), aktifkan untuk "Apache" & "MySQL"
+4. Pada terminal Visual Studio Code, jalankan perintah "php artisan migrate:fresh --seed"
+5. Pada terminal Visual Studio Code, jalankan perintah "php artisan serve"
+6. Buka link http://127.0.0.1:8000 pada browser
