@@ -26,26 +26,15 @@ class TransaksiController extends Controller
     public function index()
     {
         $jenis = JenisKendaraan::get_jenis_kendaraan();
-
-        $request1 = Request::create('/api/data_parkir_masuk', 'GET');
-        $response1 = Route::dispatch($request1)->getContent();
-        $data = json_decode($response1, true);
-
-        // dd($data);
-
-        $request2 = Request::create('/api/data_slot_kosong', 'GET');
-        $response2 = Route::dispatch($request2)->getContent();
-        $slot = json_decode($response2, true);
+        $data = Transaksi::get_parkir_masuk();
+        $slot = Transaksi::get_slot_kosong();
 
         return view('parkir-masuk', compact('data','slot','jenis'));
     }
 
     public function parkir_keluar()
     {
-        $request1 = Request::create('/api/data_parkir_keluar', 'GET');
-        $response1 = Route::dispatch($request1)->getContent();
-        $data = json_decode($response1, true);
-
+        $data = Transaksi::get_parkir_keluar();
         return view('parkir-keluar', compact('data'));
     }
 

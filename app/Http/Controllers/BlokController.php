@@ -57,9 +57,20 @@ class BlokController extends Controller
 
     public function data_blok()
     {
-        $request1 = Request::create('/api/data_blok_slot', 'GET');
-        $response1 = Route::dispatch($request1)->getContent();
-        $data = json_decode($response1, true);
+        $data1 = Blok::get_blok();
+        $data = json_decode($data1, true);
+        $panjang_data = count($data);
+        $arr=array();
+
+        foreach ($data as $datas) {
+            $blok_ready = count(Slot::where('blok_id',$datas['id'])->where('status',1)->get());
+            array_push($arr,$blok_ready);
+        }
+        
+        for ($i=0; $i < $panjang_data ; $i++) { 
+            array_push($data[$i],$arr[$i]);
+        }
+
         return view('data-blok', compact('data'));
     }
     

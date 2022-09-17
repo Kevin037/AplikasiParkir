@@ -20,9 +20,8 @@ class CreateTransaksisTable extends Migration
             $table->foreignId('kendaraan_id');
             $table->foreignId('user_id');
             $table->string('jam_masuk');
-            $table->string('jam_keluar');
+            $table->string('jam_keluar')->nullable();
             $table->string('status');
-            $table->bigInteger('biaya');
             $table->timestamps();
         });
     }
