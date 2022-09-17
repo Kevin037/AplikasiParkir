@@ -16,6 +16,7 @@ class CreateSlotsTable extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('status');
             $table->foreignId('blok_id');
             $table->timestamps();
         });

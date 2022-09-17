@@ -17,6 +17,7 @@ class CreateKendaraansTable extends Migration
             $table->id();
             $table->string('merk');
             $table->string('no_kendaraan');
+            $table->foreignId('jenis_kendaraan_id');
             $table->timestamps();
         });
     }

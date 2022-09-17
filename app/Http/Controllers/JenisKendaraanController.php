@@ -12,74 +12,44 @@ class JenisKendaraanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public static $request, $id;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $data = JenisKendaraan::get_jenis_kendaraan();
+        return view('jenis-kendaraan', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function tambah(Request $request){
+        self::$request = $request;
+        JenisKendaraan::tambah();
+        
+        // toast('Berhasil menambah Slot','success');
+        return back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function form_edit($id){
+        self::$id = $id;
+        $data = JenisKendaraan::get_jenis_kendaraan_id();
+        return view('form-edit-jenis-kendaraan', compact('data'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\JenisKendaraan  $jenisKendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JenisKendaraan $jenisKendaraan)
-    {
-        //
+    public function update(Request $request, $id){
+        self::$id = $id;
+        self::$request = $request;
+        JenisKendaraan::update_jenis_kendaraan();
+        // toast('Berhasil Update Slot','success');
+        return redirect('/jenis-kendaraan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\JenisKendaraan  $jenisKendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JenisKendaraan $jenisKendaraan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JenisKendaraan  $jenisKendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, JenisKendaraan $jenisKendaraan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\JenisKendaraan  $jenisKendaraan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(JenisKendaraan $jenisKendaraan)
-    {
-        //
+    public function hapus($id){
+        self::$id = $id;
+        JenisKendaraan::hapus();
+        return redirect('/Slot');
     }
 }

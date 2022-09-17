@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisKendaraan;
+use App\Models\Slot;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class TransaksiController extends Controller
 {
@@ -12,74 +15,54 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public static $request, $id;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        date_default_timezone_set('Asia/Jakarta');
+    }
+
     public function index()
     {
-        //
+        $jenis = JenisKendaraan::get_jenis_kendaraan();
+
+        $request1 = Request::create('/api/data_parkir_masuk', 'GET');
+        $response1 = Route::dispatch($request1)->getContent();
+        $data = json_decode($response1, true);
+
+        // dd($data);
+
+        $request2 = Request::create('/api/data_slot_kosong', 'GET');
+        $response2 = Route::dispatch($request2)->getContent();
+        $slot = json_decode($response2, true);
+
+        return view('parkir-masuk', compact('data','slot','jenis'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function parkir_keluar()
     {
-        //
+        $request1 = Request::create('/api/data_parkir_keluar', 'GET');
+        $response1 = Route::dispatch($request1)->getContent();
+        $data = json_decode($response1, true);
+
+        return view('parkir-keluar', compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function tambah(Request $request){
+        self::$request = $request;
+        Transaksi::tambah();
+        
+        // toast('Berhasil menambah Slot','success');
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaksi $transaksi)
-    {
-        //
+    public function selesai_parkir(Request $request, $id){
+        self::$id = $id;
+        self::$request = $request;
+        Transaksi::parkir_keluar();
+        // toast('Berhasil Update Slot','success');
+        return redirect('/parkir-keluar');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaksi $transaksi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaksi $transaksi)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaksi  $transaksi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaksi $transaksi)
-    {
-        //
-    }
 }

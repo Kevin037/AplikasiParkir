@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blok;
 use App\Models\Slot;
 use Illuminate\Http\Request;
 
@@ -12,74 +13,55 @@ class SlotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public static $request, $id;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $data = Slot::get_slot();
+        $blok = Blok::get_blok();
+        return view('Slot', compact('data','blok'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function tambah(Request $request){
+        self::$request = $request;
+        Slot::tambah();
+        
+        // toast('Berhasil menambah Slot','success');
+        return back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function form_edit($id){
+        self::$id = $id;
+        $data = Slot::get_Slot_id();
+        $blok = Blok::get_blok();
+        return view('form-edit-slot', compact('data','blok'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Slot  $slot
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Slot $slot)
-    {
-        //
+    public function update(Request $request, $id){
+        self::$id = $id;
+        self::$request = $request;
+        Slot::update_Slot();
+        // toast('Berhasil Update Slot','success');
+        return redirect('/slot');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Slot  $slot
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Slot $slot)
-    {
-        //
+    public function hapus($id){
+        self::$id = $id;
+        Slot::hapus();
+        return redirect('/Slot');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Slot  $slot
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Slot $slot)
+    public function detail_slot($id_blok)
     {
-        //
+        self::$id = $id_blok;
+        $data = Slot::get_slot_per_blok();
+        return response()->json($data);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Slot  $slot
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Slot $slot)
-    {
-        //
-    }
+    
 }
