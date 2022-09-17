@@ -56,10 +56,16 @@ class BlokController extends Controller
             $nama = $datas->nama;
         }
         $blok = Blok::find($id);
-        $blok_ready = Blok::blok_ready();
-        if ($blok_ready > 0) {
-            return back()->with('toast_error', '"'.$nama.'" sedang terpakai, 
-            Hapus Blok Gagal.');
+        $blok_ready = Blok::blok_siap_hapus();
+        $blok_transaksi_keluar = Blok::blok_transaksi_keluar();
+        if ($blok_ready > 0 || $blok_transaksi_keluar > 0) {
+            if ($blok_ready > 0) {
+                return back()->with('toast_error', '"'.$nama.'" sedang terpakai, 
+                Hapus Blok Gagal.');
+            }elseif ($blok_transaksi_keluar > 0) {
+                return back()->with('toast_error', '"'.$nama.'" Terdapat data histori parkir keluar, 
+                Hapus Blok Gagal.');
+            }
         }else{
             $blok->delete();
             return redirect('/blok')->with('toast_success', '"'.$nama.'" berhasil dihapus.');

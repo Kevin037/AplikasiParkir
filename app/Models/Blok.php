@@ -46,4 +46,18 @@ class Blok extends Model
         $blok = count(Slot::where('blok_id',BlokController::$id)->where('status',1)->get());
         return $blok;
     }
+
+    public static function blok_siap_hapus(){
+        $blok = count(Slot::where('blok_id',BlokController::$id)->where('status',0)->get());
+        return $blok;
+    }
+
+    public static function blok_transaksi_keluar(){
+        $blok_slot = Slot::where('blok_id',BlokController::$id)->where('status',1)->get();
+        $n=0;
+        foreach ($blok_slot as $bs) {
+            $n += count(Transaksi::where('slot_id',$bs->id)->where('status',0)->get());
+        }
+        return $n;
+    }
 }
